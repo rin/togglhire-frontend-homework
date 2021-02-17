@@ -102,6 +102,7 @@ const EmailListUploader = () => {
             <Notification
               type={notification.type}
               text={notification.message}
+              handleClear={() => setNotification(null)}
             />
           )}
           <label htmlFor="files">Select email address files</label>

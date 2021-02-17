@@ -12,6 +12,19 @@
   margin-top: 0;
 }
 
+.notification a.dismiss {
+  float: right;
+  font-size: 1.75em;
+  opacity: 0.5;
+  line-height: 0.1em;
+  text-decoration: none;
+  color: #2c1138;
+}
+
+.notification a.dismiss:hover {
+  opacity: 0.75;
+}
+
 .notification.error {
   border: 1px solid rgb(253 50 89 / 40%);
   background-color: rgb(253 50 89 / 10%);
