@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Notification, { NOTIFICATION_TYPES } from './Notification';
+import './emailListUploader.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
 const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
@@ -39,6 +40,7 @@ const EmailListUploader = () => {
     // event.target.files is a FileList -> make it an array
     const filesArray = Array.from(event.target.files);
     setUploadedFiles(filesArray);
+    setNotification(null);
 
     Promise.all(filesArray.map(parseEmailsFromFile))
       .then((result) => {
@@ -77,8 +79,8 @@ const EmailListUploader = () => {
         } else {
           response.json().then(({ error, emails }) => {
             const errorMessage = API_ERRORS[error] || error;
-            setError(`${errorMessage}: ${emails.join(', ')}`);
-            setIsSubmitting(false);
+            setError(`${errorMessage}: ${(emails || []).join(', ')}`);
+            resetForm();
           });
         }
       })
@@ -92,47 +94,57 @@ const EmailListUploader = () => {
   return (
     <div>
       <form>
-        {notification && (
-          <Notification type={notification.type} text={notification.message} />
-        )}
-        <label htmlFor="files">
-          Select .txt files containing your email addresses.
-        </label>
-        <input
-          ref={fileUpload}
-          type="file"
-          name="files"
-          id="files"
-          accept=".txt,text/plain"
-          onChange={handleUpload}
-          multiple
-        />
-        {uploadedFiles.length > 0 && (
-          <>
-            <h3>Selected Files</h3>
-            <ul>
-              {uploadedFiles.map((file) => (
-                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
-              ))}
-            </ul>
-          </>
-        )}
-        {emails.length > 0 && (
-          <>
-            <h3>Emails</h3>
-            <ul>
-              {emails.map((email) => (
-                <li key={email}>{email}</li>
-              ))}
-            </ul>
-          </>
-        )}
-        <button
-          onClick={handleSubmit}
-          disabled={!uploadedFiles.length || isSubmitting}
-        >
-          Send {emails.length ? emails.length : ''} Emails
-        </button>
+        <div className="content">
+          {notification && (
+            <Notification
+              type={notification.type}
+              text={notification.message}
+            />
+          )}
+          <label htmlFor="files">Select email address files</label>
+          <input
+            ref={fileUpload}
+            type="file"
+            name="files"
+            id="files"
+            accept=".txt,text/plain"
+            onChange={handleUpload}
+            multiple
+          />
+          <p class="hint">
+            These should be *.txt files with email addresses separated by new
+            lines.
+          </p>
+          {uploadedFiles.length > 0 && (
+            <>
+              <h3>Uploaded Files</h3>
+              <ul>
+                {uploadedFiles.map((file) => (
+                  <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {emails.length > 0 && (
+            <>
+              <h3>Emails</h3>
+              <ul className="emails">
+                {emails.sort().map((email) => (
+                  <li key={email}>{email}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+        <div className="action">
+          <button
+            className="emailButton"
+            onClick={handleSubmit}
+            disabled={!uploadedFiles.length || isSubmitting}
+          >
+            Send {emails.length ? emails.length : ''} Emails
+          </button>
+        </div>
       </form>
     </div>
   );

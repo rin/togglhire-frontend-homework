@@ -1,5 +1,5 @@
 import React from 'react';
-import EmailListUploader from './EmailListUploader';
+import EmailListUploader from './components/EmailListUploader';
 
 const App = () => (
   <div>
