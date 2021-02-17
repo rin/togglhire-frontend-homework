@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const EMAIL_LIST_DELIMITER = '\n';
+const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
+
+const API_ERRORS = {
+  send_failure: 'Error sending email to the following addresses',
+  invalid_email_address: 'The following email addresses are not valid',
+};
 
 const EmailListUploader = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -12,7 +18,7 @@ const EmailListUploader = () => {
     return new Promise((resolve, reject) => {
       let fileReader = new FileReader();
       fileReader.onload = () => {
-        if (!file.type.match('text')) reject('Please provide a text file.');
+        if (!file.type.match('text')) reject('Please provide a text file');
         const content = fileReader.result;
         const lines = content.trim().split(EMAIL_LIST_DELIMITER);
         resolve(lines);
@@ -32,7 +38,7 @@ const EmailListUploader = () => {
     Promise.all(filesArray.map(parseEmailsFromFile))
       .then((result) => {
         const emailList = result.flat();
-        // using Set to deduplicate emails
+        // using Set to de-duplicate emails
         setEmails([...new Set(emailList)]);
       })
       .catch((e) => {
@@ -44,8 +50,26 @@ const EmailListUploader = () => {
   const handleSubmit = () => {
     setIsSubmitting(true);
 
-    // on success
+    const body = JSON.stringify({ emails });
+    fetch(`${EMAIL_API_URL}/send`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('success!');
+        } else {
+          console.log('oh no!');
+        }
+      })
+      .catch((error) => {
+        console.log('Something went wrong: ', error);
+        setError(error);
     setIsSubmitting(false);
+      });
   };
 
   return (
@@ -87,7 +111,7 @@ const EmailListUploader = () => {
           onClick={handleSubmit}
           disabled={!uploadedFiles.length || isSubmitting}
         >
-          Send Emails
+          Send {emails.length ? emails.length : ''} Emails
         </button>
       </form>
     </div>
