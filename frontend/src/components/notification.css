@@ -26,19 +26,19 @@
 }
 
 .notification.error {
-  border: 1px solid rgb(253 50 89 / 40%);
-  background-color: rgb(253 50 89 / 10%);
+  border: 1px solid rgb(207 57 23 / 40%);
+  background-color: rgb(207 57 23 / 15%);
 }
 
 .notification.error h2 {
-  color: #fd3259;
+  color: #cf3917;
 }
 
 .notification.success {
-  border: 1px solid rgb(30 196 136 / 50%);
-  background-color: rgb(30 196 136 / 20%);
+  border: 1px solid rgb(130 178 1 / 50%);
+  background-color: rgb(130 178 1 / 20%);
 }
 
 .notification.success h2 {
-  color: #1ec488;
+  color: #82b201;
 }
