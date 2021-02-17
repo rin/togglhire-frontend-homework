@@ -3,7 +3,7 @@ import EmailListUploader from './components/EmailListUploader';
 
 const App = () => (
   <div class="wrapper">
-    <h1>Send Emails to Candidates</h1>
+    <h1>Invite Candidates</h1>
     <EmailListUploader />
   </div>
 );

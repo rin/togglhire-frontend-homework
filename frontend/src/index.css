@@ -16,10 +16,6 @@ button {
   font-family: 'PT Sans', Helvetica, sans-serif;
 }
 
-input[type='file'] {
-  border-radius: 4px;
-}
-
 ul li {
   line-height: 1.75em;
 }

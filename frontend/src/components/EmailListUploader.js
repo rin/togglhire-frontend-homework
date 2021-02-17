@@ -53,6 +53,23 @@ const EmailListUploader = () => {
       .catch((e) => setError(`Something went wrong: ${e}`));
   };
 
+  const handleDrop = (event) => {
+    event.preventDefault();
+    if (!event.dataTransfer.files) return;
+
+    const filesArray = Array.from(event.dataTransfer.files);
+    setUploadedFiles(filesArray);
+    setNotification(null);
+
+    Promise.all(filesArray.map(parseEmailsFromFile))
+      .then((result) => {
+        const emailList = result.flat();
+        // using Set to de-duplicate emails
+        setEmails([...new Set(emailList)]);
+      })
+      .catch((e) => setError(`Something went wrong: ${e}`));
+  };
+
   const resetForm = () => {
     fileUpload.current.value = '';
     setEmails([]);
@@ -105,16 +122,27 @@ const EmailListUploader = () => {
               handleClear={() => setNotification(null)}
             />
           )}
-          <label htmlFor="files">Select email address files</label>
-          <input
-            ref={fileUpload}
-            type="file"
-            name="files"
-            id="files"
-            accept=".txt,text/plain"
-            onChange={handleUpload}
-            multiple
-          />
+
+          <div
+            className="dropzone"
+            onDrop={handleDrop}
+            onDragOver={(event) => event.preventDefault()}
+          >
+            <label htmlFor="files">
+              Drag and drop or click
+              <br /> to select some email address files
+            </label>
+            <input
+              ref={fileUpload}
+              type="file"
+              name="files"
+              id="files"
+              accept=".txt,text/plain"
+              onChange={handleUpload}
+              multiple
+              hidden
+            />
+          </div>
           <p className="hint">
             These should be *.txt files with email addresses separated by new
             lines.

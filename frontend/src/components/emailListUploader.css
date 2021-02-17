@@ -13,8 +13,8 @@
 }
 
 .emailListUploader label {
-  display: block;
-  margin-bottom: 1em;
+  cursor: pointer;
+  opacity: 0.75;
 }
 
 .emailListUploader form {
@@ -36,6 +36,14 @@
   color: rgba(77, 22, 100, 0.7);
   margin-top: 0.5em;
   font-size: 0.8em;
+}
+
+.emailListUploader form .dropzone {
+  padding: 4em 2em;
+  text-align: center;
+  background-color: rgba(77, 22, 100, 0.1);
+  border-radius: 4px;
+  border: 1px dashed rgba(77, 22, 100, 0.3);
 }
 
 .emailListUploader form .emailButton {
