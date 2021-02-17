@@ -1,3 +1,30 @@
 body {
-  font-family: sans-serif;
+  font-family: Helvetica, sans-serif;
+  background-color: #fbf3f0;
+  font-family: 'PT Sans', Helvetica, sans-serif;
+  color: #2c1138;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Inter', sans-serif;
+}
+
+input,
+button {
+  font-family: 'PT Sans', Helvetica, sans-serif;
+}
+
+input[type='file'] {
+  border-radius: 4px;
+}
+
+ul li {
+  line-height: 1.75em;
+}
+
+.wrapper {
+  max-width: 500px;
+  margin: 5em auto;
 }

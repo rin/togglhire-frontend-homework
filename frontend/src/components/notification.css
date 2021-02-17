@@ -1,0 +1,31 @@
+.notification {
+  border-radius: 4px;
+  padding: 1em;
+  margin-bottom: 1.5em;
+}
+
+.notification p {
+  margin-bottom: 0;
+}
+
+.notification h2 {
+  margin-top: 0;
+}
+
+.notification.error {
+  border: 1px solid rgb(253 50 89 / 40%);
+  background-color: rgb(253 50 89 / 10%);
+}
+
+.notification.error h2 {
+  color: #fd3259;
+}
+
+.notification.success {
+  border: 1px solid rgb(30 196 136 / 50%);
+  background-color: rgb(30 196 136 / 20%);
+}
+
+.notification.success h2 {
+  color: #1ec488;
+}

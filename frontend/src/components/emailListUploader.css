@@ -1,0 +1,60 @@
+.emailListUploader ul.emails {
+  padding-left: 0;
+}
+
+.emailListUploader ul.emails li {
+  list-style-type: none;
+  background-color: #ffde91;
+  line-height: 1.2;
+  display: inline-block;
+  padding: 0.25em;
+  margin: 0.25em;
+  border-radius: 4px;
+}
+
+.emailListUploader label {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.emailListUploader form {
+  background: white;
+  border-radius: 4px;
+}
+
+.emailListUploader form .content {
+  padding: 2em;
+}
+
+.emailListUploader form .action {
+  text-align: right;
+  border-top: 1px solid rgba(77, 22, 100, 0.1);
+  padding: 1.7em 2em;
+}
+
+.emailListUploader form .hint {
+  color: rgba(77, 22, 100, 0.7);
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
+
+.emailListUploader form .emailButton {
+  height: 2.75em;
+  padding: 0.5em 1.25em;
+  border-radius: 4px;
+  background-color: #2c1138;
+  color: #fbf3f0;
+  font-size: 1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emailListUploader form .emailButton:hover {
+  background-color: rgb(44 17 56 / 80%);
+}
+
+.emailListUploader form .emailButton:disabled {
+  background-color: rgb(44 17 56 / 60%);
+  cursor: not-allowed;
+  color: #ddd;
+}

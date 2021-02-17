@@ -92,7 +92,7 @@ const EmailListUploader = () => {
   };
 
   return (
-    <div>
+    <div className="emailListUploader">
       <form>
         <div className="content">
           {notification && (
@@ -111,7 +111,7 @@ const EmailListUploader = () => {
             onChange={handleUpload}
             multiple
           />
-          <p class="hint">
+          <p className="hint">
             These should be *.txt files with email addresses separated by new
             lines.
           </p>
