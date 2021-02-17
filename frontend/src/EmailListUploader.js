@@ -9,6 +9,7 @@ const API_ERRORS = {
 };
 
 const EmailListUploader = () => {
+  const fileUpload = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [emails, setEmails] = useState([]);
   const [hasError, setError] = useState(null);
@@ -45,6 +46,12 @@ const EmailListUploader = () => {
         console.log(`Something went wrong: ${e}`);
         setError(e);
       });
+
+  const resetForm = () => {
+    fileUpload.current.value = '';
+    setEmails([]);
+    setIsSubmitting(false);
+    setUploadedFiles([]);
   };
 
   const handleSubmit = () => {
@@ -80,6 +87,7 @@ const EmailListUploader = () => {
           Select .txt files containing your email addresses.
         </label>
         <input
+          ref={fileUpload}
           type="file"
           name="files"
           id="files"
