@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Notification, { NOTIFICATION_TYPES } from './Notification';
+import Loading from './Loading';
 import './emailListUploader.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
@@ -95,6 +96,7 @@ const EmailListUploader = () => {
   return (
     <div className="emailListUploader">
       <form>
+        {isSubmitting && <Loading />}
         <div className="content">
           {notification && (
             <Notification
