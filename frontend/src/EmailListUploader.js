@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Notification, { NOTIFICATION_TYPES } from './Notification';
 
 const EMAIL_LIST_DELIMITER = '\n';
 const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
@@ -12,8 +13,11 @@ const EmailListUploader = () => {
   const fileUpload = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [emails, setEmails] = useState([]);
-  const [hasError, setError] = useState(null);
+  const [notification, setNotification] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const setError = (message) =>
+    setNotification({ type: NOTIFICATION_TYPES.error, message });
 
   const parseEmailsFromFile = async (file) => {
     return new Promise((resolve, reject) => {
@@ -42,10 +46,8 @@ const EmailListUploader = () => {
         // using Set to de-duplicate emails
         setEmails([...new Set(emailList)]);
       })
-      .catch((e) => {
-        console.log(`Something went wrong: ${e}`);
-        setError(e);
-      });
+      .catch((e) => setError(`Something went wrong: ${e}`));
+  };
 
   const resetForm = () => {
     fileUpload.current.value = '';
@@ -67,22 +69,32 @@ const EmailListUploader = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log('success!');
+          setNotification({
+            type: NOTIFICATION_TYPES.success,
+            message: `Successfully sent ${emails.length} emails.`,
+          });
+          resetForm();
         } else {
-          console.log('oh no!');
+          response.json().then(({ error, emails }) => {
+            const errorMessage = API_ERRORS[error] || error;
+            setError(`${errorMessage}: ${emails.join(', ')}`);
+            setIsSubmitting(false);
+          });
         }
       })
       .catch((error) => {
         console.log('Something went wrong: ', error);
         setError(error);
-    setIsSubmitting(false);
+        setIsSubmitting(false);
       });
   };
 
   return (
     <div>
       <form>
-        {hasError && <p>{hasError.message}</p>}
+        {notification && (
+          <Notification type={notification.type} text={notification.message} />
+        )}
         <label htmlFor="files">
           Select .txt files containing your email addresses.
         </label>
