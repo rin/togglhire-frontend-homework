@@ -8,6 +8,7 @@ const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
 const API_ERRORS = {
   send_failure: 'Error sending email to the following addresses',
   invalid_email_address: 'The following email addresses are not valid',
+  server_error: 'The server reported an error. Please try again.',
 };
 
 const EmailListUploader = () => {
@@ -79,7 +80,7 @@ const EmailListUploader = () => {
         } else {
           response.json().then(({ error, emails }) => {
             const errorMessage = API_ERRORS[error] || error;
-            setError(`${errorMessage}: ${(emails || []).join(', ')}`);
+            setError(`${errorMessage} ${(emails || []).join(', ')}`);
             resetForm();
           });
         }
