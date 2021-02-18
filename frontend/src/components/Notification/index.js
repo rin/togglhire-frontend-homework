@@ -8,9 +8,9 @@ export const NOTIFICATION_TYPES = {
 
 const Notification = ({ type, text, handleClear }) => (
   <div class={`notification ${type}`}>
-    <a className="dismiss" title="Dismiss" href="#" onClick={handleClear}>
+    <button className="dismiss" title="Dismiss" onClick={handleClear}>
       ⨯
-    </a>
+    </button>
     {type === NOTIFICATION_TYPES.error && <h2>That didn't work 😬</h2>}
     {type === NOTIFICATION_TYPES.success && <h2>Yay 🥳</h2>}
     <p>{text}</p>
