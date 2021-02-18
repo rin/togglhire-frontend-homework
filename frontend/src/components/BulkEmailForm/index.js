@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import Notification, { NOTIFICATION_TYPES } from '../Notification';
+import { NOTIFICATION_TYPES } from '../Notification';
+import { useNotification } from '../NotificationProvider';
 import Loading from '../Loading';
 import Dropzone from '../Dropzone';
 import './styles.css';
@@ -17,7 +18,7 @@ const BulkEmailForm = () => {
   const fileUpload = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [emails, setEmails] = useState([]);
-  const [notification, setNotification] = useState(null);
+  const { setNotification, clearNotification } = useNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setError = (message) =>
@@ -45,7 +46,7 @@ const BulkEmailForm = () => {
     // event.target.files is a FileList -> make it an array
     const filesArray = Array.from(fileList);
     setUploadedFiles(filesArray);
-    setNotification(null);
+    clearNotification();
 
     Promise.all(filesArray.map(parseEmailsFromFile))
       .then((result) => {
@@ -77,7 +78,6 @@ const BulkEmailForm = () => {
       .then((response) => {
         if (response.ok) {
           setNotification({
-            type: NOTIFICATION_TYPES.success,
             message: `Successfully sent ${emails.length} emails.`,
           });
           resetForm();
@@ -101,13 +101,6 @@ const BulkEmailForm = () => {
       <form>
         {isSubmitting && <Loading />}
         <div className="content">
-          {notification && (
-            <Notification
-              type={notification.type}
-              text={notification.message}
-              handleClear={() => setNotification(null)}
-            />
-          )}
           <Dropzone onDrop={handleUpload}>
             <label htmlFor="files">
               Drag and drop or click

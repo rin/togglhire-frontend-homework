@@ -20,6 +20,7 @@
   border: none;
   color: #2c1138;
   cursor: pointer;
+  background: transparent;
 }
 
 .notification button.dismiss:hover {
