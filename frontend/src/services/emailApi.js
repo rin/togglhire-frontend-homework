@@ -20,6 +20,7 @@ export const sendEmails = (emails) =>
         .json()
         .then(({ error, emails }) =>
           reject(`${API_ERRORS[error] || error} ${(emails || []).join(', ')}`)
-        );
+        )
+        .catch(reject);
     });
   });
