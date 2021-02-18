@@ -1,5 +1,5 @@
 import React from 'react';
-import './loading.css';
+import './styles.css';
 
 const Loading = () => (
   <div className="loadingWrapper">

@@ -1,10 +1,10 @@
 import React from 'react';
-import EmailListUploader from './components/EmailListUploader';
+import BulkEmailForm from './components/BulkEmailForm';
 
 const App = () => (
-  <div class="wrapper">
+  <div className="wrapper">
     <h1>Invite Candidates</h1>
-    <EmailListUploader />
+    <BulkEmailForm />
   </div>
 );
 

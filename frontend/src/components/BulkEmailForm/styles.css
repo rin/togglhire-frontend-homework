@@ -1,8 +1,8 @@
-.emailListUploader ul.emails {
+.bulkEmailForm ul.emails {
   padding-left: 0;
 }
 
-.emailListUploader ul.emails li {
+.bulkEmailForm ul.emails li {
   list-style-type: none;
   background-color: #ffde91;
   line-height: 1.2;
@@ -12,33 +12,33 @@
   border-radius: 4px;
 }
 
-.emailListUploader label {
+.bulkEmailForm label {
   cursor: pointer;
   opacity: 0.75;
 }
 
-.emailListUploader form {
+.bulkEmailForm form {
   background: white;
   border-radius: 4px;
 }
 
-.emailListUploader form .content {
+.bulkEmailForm form .content {
   padding: 2em;
 }
 
-.emailListUploader form .action {
+.bulkEmailForm form .action {
   text-align: right;
   border-top: 1px solid rgba(77, 22, 100, 0.1);
   padding: 1.7em 2em;
 }
 
-.emailListUploader form .hint {
+.bulkEmailForm form .hint {
   color: rgba(77, 22, 100, 0.7);
   margin-top: 0.5em;
   font-size: 0.8em;
 }
 
-.emailListUploader form .dropzone {
+.bulkEmailForm form .dropzone {
   padding: 4em 2em;
   text-align: center;
   background-color: rgba(77, 22, 100, 0.1);
@@ -46,7 +46,7 @@
   border: 1px dashed rgba(77, 22, 100, 0.3);
 }
 
-.emailListUploader form .emailButton {
+.bulkEmailForm form .emailButton {
   height: 2.75em;
   padding: 0.5em 1.25em;
   border-radius: 4px;
@@ -57,11 +57,11 @@
   cursor: pointer;
 }
 
-.emailListUploader form .emailButton:hover {
+.bulkEmailForm form .emailButton:hover {
   background-color: rgb(44 17 56 / 80%);
 }
 
-.emailListUploader form .emailButton:disabled {
+.bulkEmailForm form .emailButton:disabled {
   background-color: rgb(44 17 56 / 60%);
   cursor: not-allowed;
   color: #ddd;

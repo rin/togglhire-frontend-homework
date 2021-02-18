@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import Notification, { NOTIFICATION_TYPES } from './Notification';
-import Loading from './Loading';
-import './emailListUploader.css';
+import Notification, { NOTIFICATION_TYPES } from '../Notification';
+import Loading from '../Loading';
+import './styles.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
 const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
@@ -12,7 +12,7 @@ const API_ERRORS = {
   server_error: 'The server reported an error. Please try again.',
 };
 
-const EmailListUploader = () => {
+const BulkEmailForm = () => {
   const fileUpload = useRef(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [emails, setEmails] = useState([]);
@@ -36,11 +36,13 @@ const EmailListUploader = () => {
     });
   };
 
-  const handleUpload = async (event) => {
-    if (!event.target.files) return;
+  const handleSelect = async (event) => handleUpload(event.target.files);
+
+  const handleUpload = async (fileList) => {
+    if (!fileList) return;
 
     // event.target.files is a FileList -> make it an array
-    const filesArray = Array.from(event.target.files);
+    const filesArray = Array.from(fileList);
     setUploadedFiles(filesArray);
     setNotification(null);
 
@@ -55,19 +57,7 @@ const EmailListUploader = () => {
 
   const handleDrop = (event) => {
     event.preventDefault();
-    if (!event.dataTransfer.files) return;
-
-    const filesArray = Array.from(event.dataTransfer.files);
-    setUploadedFiles(filesArray);
-    setNotification(null);
-
-    Promise.all(filesArray.map(parseEmailsFromFile))
-      .then((result) => {
-        const emailList = result.flat();
-        // using Set to de-duplicate emails
-        setEmails([...new Set(emailList)]);
-      })
-      .catch((e) => setError(`Something went wrong: ${e}`));
+    handleUpload(event.dataTransfer.files);
   };
 
   const resetForm = () => {
@@ -111,7 +101,7 @@ const EmailListUploader = () => {
   };
 
   return (
-    <div className="emailListUploader">
+    <div className="bulkEmailForm">
       <form>
         {isSubmitting && <Loading />}
         <div className="content">
@@ -122,7 +112,6 @@ const EmailListUploader = () => {
               handleClear={() => setNotification(null)}
             />
           )}
-
           <div
             className="dropzone"
             onDrop={handleDrop}
@@ -138,7 +127,7 @@ const EmailListUploader = () => {
               name="files"
               id="files"
               accept=".txt,text/plain"
-              onChange={handleUpload}
+              onChange={handleSelect}
               multiple
               hidden
             />
@@ -182,4 +171,4 @@ const EmailListUploader = () => {
   );
 };
 
-export default EmailListUploader;
+export default BulkEmailForm;
