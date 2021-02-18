@@ -1,4 +1,10 @@
 .loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingOverlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -10,7 +16,9 @@
 }
 
 .loadingSpinner {
-  margin: 20% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   pointer-events: none;
   width: 2.5em;
   height: 2.5em;

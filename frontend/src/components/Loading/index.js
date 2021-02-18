@@ -3,6 +3,7 @@ import './styles.css';
 
 const Loading = () => (
   <div className="loadingWrapper">
+    <div className="loadingOverlay" />
     <div className="loadingSpinner" />
   </div>
 );

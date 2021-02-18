@@ -55,7 +55,6 @@ const BulkEmailForm = () => {
   const resetForm = () => {
     fileUpload.current.value = '';
     setEmails([]);
-    setIsSubmitting(false);
     setUploadedFiles([]);
   };
 
@@ -63,12 +62,16 @@ const BulkEmailForm = () => {
     setIsSubmitting(true);
 
     sendEmails(emails)
-      .then(() =>
+      .then(() => {
+        setIsSubmitting(false);
         setNotification({
           message: `Successfully sent ${emails.length} emails.`,
-        })
-      )
-      .catch(setError)
+        });
+      })
+      .catch((e) => {
+        setError(e);
+        setIsSubmitting(false);
+      })
       .finally(resetForm());
   };
 
@@ -110,7 +113,6 @@ const BulkEmailForm = () => {
             These should be *.txt files with email addresses separated by new
             lines.
           </p>
-
           {emails.length > 0 && (
             <>
               <h3>Emails</h3>
