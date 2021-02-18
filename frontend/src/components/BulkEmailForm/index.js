@@ -3,6 +3,7 @@ import { NOTIFICATION_TYPES } from '../Notification';
 import { useNotification } from '../NotificationProvider';
 import Loading from '../Loading';
 import Dropzone from '../Dropzone';
+import FileIcon from '../FileIcon';
 import './styles.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
@@ -102,10 +103,23 @@ const BulkEmailForm = () => {
         {isSubmitting && <Loading />}
         <div className="content">
           <Dropzone onDrop={handleUpload}>
-            <label htmlFor="files">
-              Drag and drop or click
-              <br /> to select some email address files
-            </label>
+            {uploadedFiles.length > 0 ? (
+              <>
+                <ul className="uploadedFiles">
+                  {uploadedFiles.map((file) => (
+                    <li key={`${file.name}-${file.lastModified}`}>
+                      <FileIcon />
+                      {file.name}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <label htmlFor="files">
+                Drag and drop or click
+                <br /> to select some email address files
+              </label>
+            )}
             <input
               ref={fileUpload}
               type="file"
@@ -121,16 +135,7 @@ const BulkEmailForm = () => {
             These should be *.txt files with email addresses separated by new
             lines.
           </p>
-          {uploadedFiles.length > 0 && (
-            <>
-              <h3>Uploaded Files</h3>
-              <ul>
-                {uploadedFiles.map((file) => (
-                  <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
-                ))}
-              </ul>
-            </>
-          )}
+
           {emails.length > 0 && (
             <>
               <h3>Emails</h3>

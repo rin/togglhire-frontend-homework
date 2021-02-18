@@ -32,6 +32,27 @@
   padding: 1.7em 2em;
 }
 
+.bulkEmailForm .uploadedFiles {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  width: 100%;
+}
+
+.bulkEmailForm .uploadedFiles li {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75em;
+}
+
+.bulkEmailForm .uploadedFiles li svg {
+  color: #b49fbd;
+  max-width: 6em;
+  margin: 0 auto;
+}
+
 .bulkEmailForm form .hint {
   color: rgba(77, 22, 100, 0.7);
   margin-top: 0.5em;
