@@ -7,7 +7,7 @@ export const NOTIFICATION_TYPES = {
 };
 
 const Notification = ({ type, message, handleClear }) => (
-  <div class={`notification ${type}`}>
+  <div className={`notification ${type}`}>
     <button className="dismiss" title="Dismiss" onClick={handleClear}>
       ⨯
     </button>

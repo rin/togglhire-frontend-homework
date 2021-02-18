@@ -14,14 +14,12 @@ export const sendEmails = (emails) =>
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ emails }),
-    })
-      .then((response) => {
-        if (response.ok) resolve(response);
-        return response
-          .json()
-          .then(({ error, emails }) =>
-            reject(`${API_ERRORS[error] || error} ${(emails || []).join(', ')}`)
-          );
-      })
-      .catch((e) => console.log('oh no'));
+    }).then((response) => {
+      if (response.ok) resolve(response);
+      return response
+        .json()
+        .then(({ error, emails }) =>
+          reject(`${API_ERRORS[error] || error} ${(emails || []).join(', ')}`)
+        );
+    });
   });
