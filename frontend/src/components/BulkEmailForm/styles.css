@@ -38,14 +38,6 @@
   font-size: 0.8em;
 }
 
-.bulkEmailForm form .dropzone {
-  padding: 4em 2em;
-  text-align: center;
-  background-color: rgba(77, 22, 100, 0.1);
-  border-radius: 4px;
-  border: 1px dashed rgba(77, 22, 100, 0.3);
-}
-
 .bulkEmailForm form .emailButton {
   height: 2.75em;
   padding: 0.5em 1.25em;

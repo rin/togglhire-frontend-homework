@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Notification, { NOTIFICATION_TYPES } from '../Notification';
 import Loading from '../Loading';
+import Dropzone from '../Dropzone';
 import './styles.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
@@ -55,11 +56,6 @@ const BulkEmailForm = () => {
       .catch((e) => setError(`Something went wrong: ${e}`));
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault();
-    handleUpload(event.dataTransfer.files);
-  };
-
   const resetForm = () => {
     fileUpload.current.value = '';
     setEmails([]);
@@ -112,11 +108,7 @@ const BulkEmailForm = () => {
               handleClear={() => setNotification(null)}
             />
           )}
-          <div
-            className="dropzone"
-            onDrop={handleDrop}
-            onDragOver={(event) => event.preventDefault()}
-          >
+          <Dropzone onDrop={handleUpload}>
             <label htmlFor="files">
               Drag and drop or click
               <br /> to select some email address files
@@ -131,7 +123,7 @@ const BulkEmailForm = () => {
               multiple
               hidden
             />
-          </div>
+          </Dropzone>
           <p className="hint">
             These should be *.txt files with email addresses separated by new
             lines.
