@@ -4,16 +4,10 @@ import { useNotification } from '../NotificationProvider';
 import Loading from '../Loading';
 import Dropzone from '../Dropzone';
 import FileIcon from '../FileIcon';
+import { sendEmails } from '../../services/emailApi';
 import './styles.css';
 
 const EMAIL_LIST_DELIMITER = '\n';
-const EMAIL_API_URL = 'https://toggl-hire-frontend-homework.vercel.app/api';
-
-const API_ERRORS = {
-  send_failure: 'Error sending email to the following addresses',
-  invalid_email_address: 'The following email addresses are not valid',
-  server_error: 'The server reported an error. Please try again.',
-};
 
 const BulkEmailForm = () => {
   const fileUpload = useRef(null);
@@ -68,33 +62,14 @@ const BulkEmailForm = () => {
   const handleSubmit = () => {
     setIsSubmitting(true);
 
-    const body = JSON.stringify({ emails });
-    fetch(`${EMAIL_API_URL}/send`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body,
-    })
-      .then((response) => {
-        if (response.ok) {
-          setNotification({
-            message: `Successfully sent ${emails.length} emails.`,
-          });
-          resetForm();
-        } else {
-          response.json().then(({ error, emails }) => {
-            const errorMessage = API_ERRORS[error] || error;
-            setError(`${errorMessage} ${(emails || []).join(', ')}`);
-            resetForm();
-          });
-        }
-      })
-      .catch((error) => {
-        console.log('Something went wrong: ', error);
-        setError(error);
-        setIsSubmitting(false);
-      });
+    sendEmails(emails)
+      .then(() =>
+        setNotification({
+          message: `Successfully sent ${emails.length} emails.`,
+        })
+      )
+      .catch(setError)
+      .finally(resetForm());
   };
 
   return (
